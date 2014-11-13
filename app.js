@@ -22,7 +22,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.route('/').get(inventory.list);
+app.route('/').get(inventory.list).post(inventory.create);
+app.get('/new', inventory.new);
+app.route('/:id').get(inventory.show).post(inventory.update).delete(inventory.delete);
+app.route('/:id/edit').get(inventory.edit);
+
+/*
+app.get('/', inventory.list);
+app.post('/', inventory.create);
+app.get('/new', inventory.new);
+app.get('/:id', inventory.show);
+app.post('/:id', inventory.update);
+app.delete('/id', inventory.delete);
+app.get('/:id/edit', inventory.edit);
+*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
